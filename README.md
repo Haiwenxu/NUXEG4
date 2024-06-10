@@ -1,0 +1,13 @@
+# NUXEG4
+A Geant4 simulation for a Cylindrical LXe detector.
+
+
+Run the Simulation in /build with UI: ./LXe
+  (Note: One will need to change two lines in order to successfully run the UI, GOTO line 178, 179. in ./src/LXeMainVolume.cc)
+
+
+Run the Simulation in /build without UI: ./LXe photon.mac
+  (Note: One may need to change the event number in photon.mac line 10)
+
+
+The Output root file is located in ./build/lxe.root. The program will overwrite.
