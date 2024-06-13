@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-/// \file optical/LXe/src/LXeRunAction.cc
+/// \file NUXE/src/LXeRunAction.cc
 /// \brief Implementation of the LXeRunAction class
 //
 //
@@ -41,6 +41,7 @@ LXeRunAction::LXeRunAction()
 {
   // Book predefined histograms
   fHistoManager = new LXeHistoManager();
+
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

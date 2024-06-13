@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-/// \file optical/LXe/src/LXeDetectorConstruction.cc
+/// \file NUXE/src/LXeDetectorConstruction.cc
 /// \brief Implementation of the LXeDetectorConstruction class
 //
 //

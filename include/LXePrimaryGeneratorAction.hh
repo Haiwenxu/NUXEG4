@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-/// \file optical/LXe/include/LXePrimaryGeneratorAction.hh
+/// \file NUXE/include/LXePrimaryGeneratorAction.hh
 /// \brief Definition of the LXePrimaryGeneratorAction class
 //
 //

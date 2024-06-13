@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-/// \file optical/LXe/include/LXeEven tAction.hh
+/// \file NUXE/include/LXeEven tAction.hh
 /// \brief Definition of the LXeEventAction class
 //
 

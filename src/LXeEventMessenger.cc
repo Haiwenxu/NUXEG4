@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-/// \file optical/LXe/src/LXeEventMessenger.cc
+/// \file NUXE/src/LXeEventMessenger.cc
 /// \brief Implementation of the LXeEventMessenger class
 //
 //

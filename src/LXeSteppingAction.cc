@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-/// \file optical/LXe/src/LXeSteppingAction.cc
+/// \file NUXE/src/LXeSteppingAction.cc
 /// \brief Implementation of the LXeSteppingAction class
 //
 //
@@ -36,6 +36,7 @@
 #include "LXeTrajectory.hh"
 #include "LXeUserTrackInformation.hh"
 #include "LXeHistoManager.hh"
+
 
 #include "G4OpticalPhoton.hh"
 #include "G4ProcessManager.hh"
@@ -250,6 +251,18 @@ void LXeSteppingAction::UserSteppingAction(const G4Step* theStep)
           Time = (thePostPoint->GetGlobalTime() + thePrePoint->GetGlobalTime())/2;
           G4AnalysisManager::Instance()->FillH1(9, Time);
           G4cout << "============== "<<Time<<" ================" << G4endl;
+
+
+          G4AnalysisManager::Instance()->FillNtupleDColumn(0,theStep->GetTrack()->GetTotalEnergy());
+          G4AnalysisManager::Instance()->FillNtupleDColumn(1,theStep->GetTrack()->GetVertexPosition().x());
+          G4AnalysisManager::Instance()->FillNtupleDColumn(2,theStep->GetTrack()->GetVertexPosition().y());
+          G4AnalysisManager::Instance()->FillNtupleDColumn(3,theStep->GetTrack()->GetVertexPosition().z());
+          G4AnalysisManager::Instance()->FillNtupleDColumn(4,Time);
+          G4AnalysisManager::Instance()->FillNtupleDColumn(5,thePostPoint->GetPosition().x());
+          G4AnalysisManager::Instance()->FillNtupleDColumn(6,thePostPoint->GetPosition().y());
+          G4AnalysisManager::Instance()->FillNtupleDColumn(7,thePostPoint->GetPosition().z());
+          G4AnalysisManager::Instance()->AddNtupleRow();
+
 
 
           G4SDManager* SDman = G4SDManager::GetSDMpointer();

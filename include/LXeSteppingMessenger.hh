@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-/// \file optical/LXe/include/LXeSteppingMessenger.hh
+/// \file NUXE/include/LXeSteppingMessenger.hh
 /// \brief Definition of the LXeSteppingMessenger class
 //
 //

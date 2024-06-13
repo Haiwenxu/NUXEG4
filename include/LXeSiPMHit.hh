@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-/// \file optical/LXe/include/LXeSiPMHit.hh
+/// \file NUXE/include/LXeSiPMHit.hh
 /// \brief Definition of the LXeSiPMHit class
 //
 //

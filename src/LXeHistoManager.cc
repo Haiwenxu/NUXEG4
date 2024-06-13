@@ -23,7 +23,7 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-/// \file optical/LXe/src/LXeHistoManager.cc
+/// \file NUXE/src/LXeHistoManager.cc
 /// \brief Implementation of the LXeHistoManager class
 //
 //
@@ -36,7 +36,7 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 LXeHistoManager::LXeHistoManager()
-  : fFileName("lxe")
+  : fFileName("../Data/lxe")
 {
   Book();
 }
@@ -63,7 +63,7 @@ void LXeHistoManager::Book()
   G4double vmin = 0.;
   G4double vmax = 100.;
   G4double Tmin = 0.;
-  G4double Tmax = 2.;
+  G4double Tmax = 100.;
 
   // 0
   analysisManager->CreateH1("0", "dummy", nbins, vmin, vmax);
@@ -126,6 +126,21 @@ void LXeHistoManager::Book()
                             XfunctionName, YfunctionName, ZfunctionName,
                             XbinSchemeName, YbinSchemeName, ZbinSchemeName
   );
+
+
+
+  analysisManager->CreateNtuple("NUXE", "Event_Hit");
+  analysisManager->CreateNtupleDColumn("Event_Energy"); // column Id = 0
+  analysisManager->CreateNtupleDColumn("Event_X"); // column Id = 1
+  analysisManager->CreateNtupleDColumn("Event_Y"); // column Id = 2
+  analysisManager->CreateNtupleDColumn("Event_Z"); // column Id = 3
+  analysisManager->CreateNtupleDColumn("Hit_Time"); // column Id = 4
+  analysisManager->CreateNtupleDColumn("Hit_X"); // column Id = 5
+  analysisManager->CreateNtupleDColumn("Hit_Y"); // column Id = 6
+  analysisManager->CreateNtupleDColumn("Hit_Z"); // column Id = 7
+  analysisManager->SetNtupleMerging(true);
+  analysisManager->FinishNtuple(); 
+
 
   // Create all histograms as activated
   for(G4int i = 0; i < analysisManager->GetNofH1s(); ++i)

@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-/// \file optical/LXe/src/LXeUserTrackInformation.cc
+/// \file NUXE/src/LXeUserTrackInformation.cc
 /// \brief Implementation of the LXeUserTrackInformation class
 //
 //

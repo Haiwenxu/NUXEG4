@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-/// \file optical/LXe/src/LXeSiPMSD.cc
+/// \file NUXE/src/LXeSiPMSD.cc
 /// \brief Implementation of the LXeSiPMSD class
 //
 //

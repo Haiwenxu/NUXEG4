@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-/// \file optical/LXe/src/LXeRun.cc
+/// \file NUXE/src/LXeRun.cc
 /// \brief Implementation of the LXeRun class
 //
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

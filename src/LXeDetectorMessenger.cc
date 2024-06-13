@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-/// \file optical/LXe/src/LXeDetectorMessenger.cc
+/// \file NUXE/src/LXeDetectorMessenger.cc
 /// \brief Implementation of the LXeDetectorMessenger class
 //
 //

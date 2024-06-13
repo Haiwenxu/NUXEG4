@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-/// \file optical/LXe/src/LXeStackingAction.cc
+/// \file NUXE/src/LXeStackingAction.cc
 /// \brief Implementation of the LXeStackingAction class
 //
 //

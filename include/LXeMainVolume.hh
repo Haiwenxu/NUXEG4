@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-/// \file optical/LXe/include/LXeMainVolume.hh
+/// \file NUXE/include/LXeMainVolume.hh
 /// \brief Definition of the LXeMainVolume class
 //
 #ifndef LXeMainVolume_h

@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-/// \file optical/LXe/include/LXeTrackingAction.hh
+/// \file NUXE/include/LXeTrackingAction.hh
 /// \brief Definition of the LXeTrackingAction class
 //
 //

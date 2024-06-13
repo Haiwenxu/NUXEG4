@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-/// \file optical/LXe/src/LXeMainVolume.cc
+/// \file NUXE/src/LXeMainVolume.cc
 /// \brief Implementation of the LXeMainVolume class
 //
 //
@@ -175,8 +175,8 @@ LXeMainVolume::LXeMainVolume(G4RotationMatrix* pRot, const G4ThreeVector& tlate,
 
 //Change the value of the following two lines to 1 or 2 for Visulization.
 // a bigger value may take Forever for the UI to show up
-  G4int N_VGrid = 10;
-  G4int N_HGrid = 60;
+  G4int N_VGrid = 1;
+  G4int N_HGrid = 1;
 
   
   fCathode_box =

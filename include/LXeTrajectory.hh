@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-/// \file optical/LXe/include/LXeTrajectory.hh
+/// \file NUXE/include/LXeTrajectory.hh
 /// \brief Definition of the LXeTrajectory class
 //
 #ifndef LXeTrajectory_h

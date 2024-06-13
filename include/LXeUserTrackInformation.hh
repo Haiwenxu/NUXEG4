@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-/// \file optical/LXe/include/LXeUserTrackInformation.hh
+/// \file NUXE/include/LXeUserTrackInformation.hh
 /// \brief Definition of the LXeUserTrackInformation class
 //
 #include "G4VUserTrackInformation.hh"

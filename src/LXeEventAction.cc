@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-/// \file optical/LXe/src/LXeEventAction.cc
+/// \file NUXE/src/LXeEventAction.cc
 /// \brief Implementation of the LXeEventAction class
 //
 //

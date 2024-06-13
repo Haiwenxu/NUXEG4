@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-/// \file optical/LXe/include/LXeSteppingAction.hh
+/// \file NUXE/include/LXeSteppingAction.hh
 /// \brief Definition of the LXeSteppingAction class
 //
 #ifndef LXeSteppingAction_h

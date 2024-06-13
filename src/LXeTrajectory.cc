@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-/// \file optical/LXe/src/LXeTrajectory.cc
+/// \file NUXE/src/LXeTrajectory.cc
 /// \brief Implementation of the LXeTrajectory class
 //
 //
@@ -48,7 +48,7 @@ G4ThreadLocal G4Allocator<LXeTrajectory>* LXeTrajectoryAllocator = nullptr;
 
 LXeTrajectory::LXeTrajectory()
   : G4Trajectory()
-  , fDrawit(false)
+  , fDrawit(true)
   , fForceNoDraw(false)
   , fForceDraw(false)
 {
@@ -59,7 +59,7 @@ LXeTrajectory::LXeTrajectory()
 
 LXeTrajectory::LXeTrajectory(const G4Track* aTrack)
   : G4Trajectory(aTrack)
-  , fDrawit(false)
+  , fDrawit(true)
 {
   fParticleDefinition = aTrack->GetDefinition();
 }

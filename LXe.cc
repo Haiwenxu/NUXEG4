@@ -24,8 +24,8 @@
 // ********************************************************************
 //
 //
-/// \file optical/LXe/LXe.cc
-/// \brief Main program of the optical/LXe example
+/// \file NUXE/LXe.cc
+/// \brief Main program of the NUXE example
 //
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 

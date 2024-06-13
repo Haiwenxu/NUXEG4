@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-/// \file optical/LXe/src/LXePrimaryGeneratorAction.cc
+/// \file NUXE/src/LXePrimaryGeneratorAction.cc
 /// \brief Implementation of the LXePrimaryGeneratorAction class
 //
 //
@@ -97,6 +97,17 @@ LXePrimaryGeneratorAction::LXePrimaryGeneratorAction()
 
   // fParticleGun->SetParticleMomentumDirection(G4ThreeVector(2*G4UniformRand()-1, 2*G4UniformRand()-1, 2*G4UniformRand()-1));
   // fParticleGun->SetParticlePolarization(G4ThreeVector(G4UniformRand(),G4UniformRand(), G4UniformRand()));
+
+  G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
+  G4String particleName;
+
+  fParticleGun->SetParticleDefinition(
+    particleTable->FindParticle(particleName = "opticalphoton"));
+  // Default energy,position,momentum
+  m_dKineticEnergy = 7.0 * eV;
+  // m_dKineticEnergy = 511 * keV;
+  fParticleGun->SetParticleEnergy(m_dKineticEnergy);
+  
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -105,16 +116,17 @@ LXePrimaryGeneratorAction::~LXePrimaryGeneratorAction() { delete fParticleGun; }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
+
+//NOTE: This function denotes the beginning of each event.
 void LXePrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
 
-
   CLHEP::HepRandom::setTheSeed((unsigned)clock());
 
-  G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
-  G4String particleName;
 
-  const G4double r = 45.0 * (G4UniformRand()) * mm;
+
+  const G4double r = 36.5 * (G4UniformRand()) * mm;
+  const G4double rmin = 50.0 * mm;
   const G4double zmax = 4.2 * cm;   
   
   //vertex 1 uniform on cylinder
@@ -124,25 +136,19 @@ void LXePrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
   G4double muy = std::sin(alpha);
   G4double z = zmax*(2*G4UniformRand() - 1);  //z uniform in (-zmax, +zmax)
 
-  fParticleGun->SetParticleDefinition(
-    particleTable->FindParticle(particleName = "opticalphoton"));
-  // Default energy,position,momentum
-  m_dKineticEnergy = 7.0 * eV;
-  // m_dKineticEnergy = 511 * keV;
-  fParticleGun->SetParticleEnergy(m_dKineticEnergy);
 
 
 
 
   fParticleGun->SetParticlePosition(G4ThreeVector(r*mux, r*muy, z));
+  // fParticleGun->SetParticlePosition(G4ThreeVector(r*mux+rmin, r*muy+rmin, z));
+
 
 
   G4ThreeVector Pder = G4ThreeVector(2*G4UniformRand()-1, 2*G4UniformRand()-1, 2*G4UniformRand()-1);
+  // G4ThreeVector Pder = G4ThreeVector(-(r*mux+rmin), -(r*muy+rmin), -z);
   fParticleGun->SetParticleMomentumDirection(Pder);
   fParticleGun->SetParticlePolarization(Pder.orthogonal());
-
-
-
-  fParticleGun->SetParticleEnergy(m_dKineticEnergy);
   fParticleGun->GeneratePrimaryVertex(anEvent);
+
 }

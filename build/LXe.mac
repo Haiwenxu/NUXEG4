@@ -8,7 +8,7 @@
 /control/verbose 1
 /tracking/verbose 0
 /process/optical/verbose 1
-/LXe/detector/MainScintYield 10000
+#/LXe/detector/MainScintYield 10000
 #/process/optical/processActivation Cerenkov false
 
 /run/initialize
@@ -20,18 +20,18 @@
 
 /vis/disable
 /random/setSavingFlag true
-/LXe/saveThreshold 1400
-/LXe/pmtThreshold 4
-/LXe/forceDrawNoPhotons true
+#/LXe/saveThreshold 1400
+#/LXe/pmtThreshold 4
+#/LXe/forceDrawNoPhotons true
 /run/beamOn 200
 
 /vis/enable
-/LXe/eventVerbose 1
-/process/optical/scintillation/setTrackSecondariesFirst false
-/run/beamOn 5
+#/LXe/eventVerbose 1
+#/process/optical/scintillation/setTrackSecondariesFirst false
+#/run/beamOn 5
 #
 /tracking/verbose 1
-/LXe/forceDrawPhotons true
-/LXe/detector/MainScintYield 100
-/process/optical/scintillation/setTrackSecondariesFirst true
+#/LXe/forceDrawPhotons true
+#/LXe/detector/MainScintYield 100
+#/process/optical/scintillation/setTrackSecondariesFirst true
 /run/beamOn 1

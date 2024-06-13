@@ -41,7 +41,7 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/Users/haiwenxu/Downloads/geant4-v11.1.1/NUXE/build/LXe")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/LXe" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/LXe")
-    execute_process(COMMAND /usr/bin/install_name_tool
+    execute_process(COMMAND /Users/haiwenxu/opt/anaconda3/bin/install_name_tool
       -delete_rpath "/usr/local/lib"
       "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/LXe")
     if(CMAKE_INSTALL_DO_STRIP)

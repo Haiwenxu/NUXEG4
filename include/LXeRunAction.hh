@@ -24,7 +24,7 @@
 // ********************************************************************
 //
 //
-/// \file optical/LXe/include/LXeRunAction.hh
+/// \file NUXE/include/LXeRunAction.hh
 /// \brief Definition of the LXeRunAction class
 //
 //
@@ -51,6 +51,7 @@ class LXeRunAction : public G4UserRunAction
  private:
   LXeRun* fRun;
   LXeHistoManager* fHistoManager;
+
 };
 
 #endif
