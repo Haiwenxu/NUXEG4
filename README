@@ -10,4 +10,4 @@ Run the Simulation in /build without UI: ./LXe photon.mac
   (Note: One may need to change the event number in photon.mac line 10)
 
 
-The Output root file is located in ./build/lxe.root. The program will overwrite.
+The Output root file is located in ./Data/lxe.root The program will overwrite.
