@@ -35,6 +35,7 @@
 
 class LXeRun;
 class LXeHistoManager;
+// class LXeEventAction;
 
 class G4Run;
 
@@ -42,6 +43,7 @@ class LXeRunAction : public G4UserRunAction
 {
  public:
   LXeRunAction();
+  // LXeRunAction(LXeEventAction* eventAction, LXeHistoManager* histoManager);
   ~LXeRunAction();
 
   G4Run* GenerateRun() override;
@@ -51,6 +53,9 @@ class LXeRunAction : public G4UserRunAction
  private:
   LXeRun* fRun;
   LXeHistoManager* fHistoManager;
+
+  //added
+  // LXeEventAction* fEventAction;
 
 };
 

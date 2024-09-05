@@ -69,11 +69,15 @@ LXeEventAction::LXeEventAction(const LXeDetectorConstruction* det)
   fEdepMax    = 0.0;
 
   fSiPMsAboveThreshold = 0;
+
+  // HitTime                  = 0.0;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-LXeEventAction::~LXeEventAction() { delete fEventMessenger; }
+LXeEventAction::~LXeEventAction() {
+  delete fEventMessenger;
+}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -84,9 +88,13 @@ void LXeEventAction::BeginOfEventAction(const G4Event*)
   fAbsorptionCount         = 0;
   fBoundaryAbsorptionCount = 0;
   fTotE                    = 0.0;
+  // Event_Hits_TOF           = ;
+
 
   fConvPosSet = false;
   fEdepMax    = 0.0;
+
+  
 
   fSiPMsAboveThreshold = 0;
 
@@ -127,6 +135,26 @@ void LXeEventAction::EndOfEventAction(const G4Event* anEvent)
   LXeSiPMHitsCollection* sipmHC     = nullptr;
   G4HCofThisEvent* hitsCE         = anEvent->GetHCofThisEvent();
 
+
+  // 0:   Primary Energy
+  G4AnalysisManager::Instance()->FillNtupleDColumn(0,anEvent->GetPrimaryVertex()->GetPrimary()->GetTotalEnergy());
+  // 1-3: Primary Position(x,y,z)
+  G4AnalysisManager::Instance()->FillNtupleDColumn(1,anEvent->GetPrimaryVertex()->GetPosition().x());
+  G4AnalysisManager::Instance()->FillNtupleDColumn(2,anEvent->GetPrimaryVertex()->GetPosition().y());
+  G4AnalysisManager::Instance()->FillNtupleDColumn(3,anEvent->GetPrimaryVertex()->GetPosition().z());
+  // 4:   Secondaries(Hits) Time
+  // G4AnalysisManager::Instance()->FillNtupleDColumn(4,);
+  //5-7:  Hits Position(x,y,z)
+  // G4AnalysisManager::Instance()->FillNtupleDColumn(5,);
+  // G4AnalysisManager::Instance()->FillNtupleDColumn(6,);
+  // G4AnalysisManager::Instance()->FillNtupleDColumn(7,);
+  
+  G4AnalysisManager::Instance()->AddNtupleRow();
+
+  
+
+
+
   // Get the hit collections
   if(hitsCE)
   {
@@ -140,7 +168,7 @@ void LXeEventAction::EndOfEventAction(const G4Event* anEvent)
 
   if(sipmHC)
   {
-    G4ThreeVector reconPos(0., 0., 0.);
+    std::vector<G4ThreeVector> reconPos;
     size_t sipms = sipmHC->entries();
     // std::cout << "=============== SiPM# " << SiPMs << " ================" << std::endl;
 
@@ -148,7 +176,9 @@ void LXeEventAction::EndOfEventAction(const G4Event* anEvent)
     for(size_t i = 0; i < sipms; ++i)
     {
       fHitCount += (*sipmHC)[i]->GetPhotonCount();
-      reconPos += (*sipmHC)[i]->GetSiPMPos() * (*sipmHC)[i]->GetPhotonCount();
+      reconPos.push_back((*sipmHC)[i]->GetSiPMPos());
+      // reconPos += (*sipmHC)[i]->GetSiPMPos() * (*sipmHC)[i]->GetPhotonCount();
+
       if((*sipmHC)[i]->GetPhotonCount() >= fSiPMThreshold)
       {
         G4AnalysisManager::Instance()->FillH1(8, (*sipmHC)[i]->GetSiPMNumber());
@@ -168,14 +198,17 @@ void LXeEventAction::EndOfEventAction(const G4Event* anEvent)
 
     if(fHitCount > 0)
     {  // don't bother unless there were hits
-      reconPos /= fHitCount;
-      if(fVerbose > 0)
-      {
-        G4cout << "\tReconstructed position of hits in LXe : " << reconPos / mm
-               << G4endl;
-      }
-      G4AnalysisManager::Instance()->FillH3(0, reconPos.x(), reconPos.y(), reconPos.z());
-      fReconPos = reconPos;
+      // reconPos /= fHitCount;
+
+      // if(fVerbose > 0)
+      // {
+      //   // G4cout << "\tReconstructed position of hits in LXe : " << reconPos / mm
+      //   //        << G4endl;
+      // }
+      // for(size_t i = 0; i < reconPos.size(); ++i){
+      //   G4AnalysisManager::Instance()->FillH3(0, reconPos[i].x(), reconPos[i].y(), reconPos[i].z());
+      // }
+      // fReconPos = reconPos;
     }
     sipmHC->DrawAllHits();
   }
@@ -220,6 +253,22 @@ void LXeEventAction::EndOfEventAction(const G4Event* anEvent)
   if(fPhotonCount_Ceren < fDetector->GetSaveThreshold())
   {
     G4RunManager::GetRunManager()->rndmSaveThisEvent();
+  }
+
+
+
+  if (Event_Hits_TOF.size()){
+    Event_Hits_TOF.clear();
+  }
+
+  if (Event_Hits_X.size()){
+    Event_Hits_X.clear();
+  }
+  if (Event_Hits_Y.size()){
+    Event_Hits_Y.clear();
+  }
+  if (Event_Hits_Z.size()){
+    Event_Hits_Z.clear();
   }
 }
 

@@ -37,7 +37,11 @@
 #include "globals.hh"
 #include "G4AnalysisManager.hh"
 
+#include "LXeEventAction.hh"
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+// class LXeEventAction;
 
 class LXeHistoManager
 {
@@ -47,6 +51,7 @@ class LXeHistoManager
 
  private:
   void Book();
+  // void Book(LXeEventAction* eventAction);
   G4String fFileName;
 };
 

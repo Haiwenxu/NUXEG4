@@ -55,7 +55,6 @@ LXeSteppingAction::LXeSteppingAction(LXeEventAction* ea)
   , fEventAction(ea)
 {
   fSteppingMessenger = new LXeSteppingMessenger(this);
-
   fExpectedNextStatus = Undefined;
   fExpectedStatus = Undefined;
   forceStatus = false;
@@ -155,13 +154,16 @@ void LXeSteppingAction::UserSteppingAction(const G4Step* theStep)
       forceStatus = true;
       theTrack->SetTrackStatus(fStopAndKill);
     }
-    if(thePrePV->GetName() == "housing" &&
-      thePostPV->GetName() == "housing" ||
-       thePostPV->GetName() == "expHall"){
-      forceStatus = true;
-      fExpectedStatus = Absorption;
-      theTrack->SetTrackStatus(fStopAndKill);
-    }
+    // if(thePrePV->GetName() == "housing" &&
+    //   thePostPV->GetName() == "housing" ||
+    //    thePostPV->GetName() == "expHall"){
+    //   forceStatus = true;
+    //   fExpectedStatus = Absorption;
+    //   theTrack->SetTrackStatus(fStopAndKill);
+    // }
+
+
+    
     // if(thePostPV->GetName() == "Anode" &&
     //   thePrePV->GetName() == "Anode"){
     //   forceStatus = true;
@@ -250,18 +252,28 @@ void LXeSteppingAction::UserSteppingAction(const G4Step* theStep)
           // absorbed but status was Detection
           Time = (thePostPoint->GetGlobalTime() + thePrePoint->GetGlobalTime())/2;
           G4AnalysisManager::Instance()->FillH1(9, Time);
-          G4cout << "============== "<<Time<<" ================" << G4endl;
+          // G4cout << "============== "<<Time<<" ================" << G4endl;
+
+          fEventAction->push_back_TOF(Time);
+          fEventAction->push_back_Hit_X(thePrePoint->GetPosition().x());
+          fEventAction->push_back_Hit_Y(thePrePoint->GetPosition().y());
+          fEventAction->push_back_Hit_Z(thePrePoint->GetPosition().z());
 
 
-          G4AnalysisManager::Instance()->FillNtupleDColumn(0,theStep->GetTrack()->GetTotalEnergy());
-          G4AnalysisManager::Instance()->FillNtupleDColumn(1,theStep->GetTrack()->GetVertexPosition().x());
-          G4AnalysisManager::Instance()->FillNtupleDColumn(2,theStep->GetTrack()->GetVertexPosition().y());
-          G4AnalysisManager::Instance()->FillNtupleDColumn(3,theStep->GetTrack()->GetVertexPosition().z());
-          G4AnalysisManager::Instance()->FillNtupleDColumn(4,Time);
-          G4AnalysisManager::Instance()->FillNtupleDColumn(5,thePostPoint->GetPosition().x());
-          G4AnalysisManager::Instance()->FillNtupleDColumn(6,thePostPoint->GetPosition().y());
-          G4AnalysisManager::Instance()->FillNtupleDColumn(7,thePostPoint->GetPosition().z());
-          G4AnalysisManager::Instance()->AddNtupleRow();
+
+          G4AnalysisManager::Instance()->FillH3(0, thePrePoint->GetPosition().x(),
+                                                   thePrePoint->GetPosition().y(),
+                                                   thePrePoint->GetPosition().z());
+
+          // G4AnalysisManager::Instance()->FillNtupleDColumn(0,theStep->GetTrack()->GetTotalEnergy());
+          // G4AnalysisManager::Instance()->FillNtupleDColumn(1,theStep->GetTrack()->GetVertexPosition().x());
+          // G4AnalysisManager::Instance()->FillNtupleDColumn(2,theStep->GetTrack()->GetVertexPosition().y());
+          // G4AnalysisManager::Instance()->FillNtupleDColumn(3,theStep->GetTrack()->GetVertexPosition().z());
+          // G4AnalysisManager::Instance()->FillNtupleDColumn(4,Time);
+          // G4AnalysisManager::Instance()->FillNtupleDColumn(5,thePostPoint->GetPosition().x());
+          // G4AnalysisManager::Instance()->FillNtupleDColumn(6,thePostPoint->GetPosition().y());
+          // G4AnalysisManager::Instance()->FillNtupleDColumn(7,thePostPoint->GetPosition().z());
+          // G4AnalysisManager::Instance()->AddNtupleRow();
 
 
 

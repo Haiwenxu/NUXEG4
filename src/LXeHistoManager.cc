@@ -33,6 +33,10 @@
 
 #include "LXeHistoManager.hh"
 
+
+#include "G4RunManager.hh"
+#include "LXeEventAction.hh"
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 LXeHistoManager::LXeHistoManager()
@@ -49,12 +53,24 @@ LXeHistoManager::~LXeHistoManager() {}
 
 void LXeHistoManager::Book()
 {
+
+  // LXeEventAction* eventAction = static_cast<LXeEventAction*>(
+  //       G4RunManager::GetRunManager()->GetUserEventAction());
+
+  LXeEventAction* eventAction = const_cast<LXeEventAction*>(
+    static_cast<const LXeEventAction*>(G4RunManager::GetRunManager()->GetUserEventAction())
+);
+
+
+
   // Create or get analysis manager
   G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
   analysisManager->SetDefaultFileType("root");
-  analysisManager->SetFileName(fFileName);
   analysisManager->SetVerboseLevel(1);
   analysisManager->SetActivation(true);  // enable inactivation of histograms
+  analysisManager->SetNtupleMerging(true);
+  analysisManager->SetFileName(fFileName);
+
 
   // Define histogram indices, titles
 
@@ -63,7 +79,7 @@ void LXeHistoManager::Book()
   G4double vmin = 0.;
   G4double vmax = 100.;
   G4double Tmin = 0.;
-  G4double Tmax = 100.;
+  G4double Tmax = 300.;
 
   // 0
   analysisManager->CreateH1("0", "dummy", nbins, vmin, vmax);
@@ -134,12 +150,14 @@ void LXeHistoManager::Book()
   analysisManager->CreateNtupleDColumn("Event_X"); // column Id = 1
   analysisManager->CreateNtupleDColumn("Event_Y"); // column Id = 2
   analysisManager->CreateNtupleDColumn("Event_Z"); // column Id = 3
-  analysisManager->CreateNtupleDColumn("Hit_Time"); // column Id = 4
-  analysisManager->CreateNtupleDColumn("Hit_X"); // column Id = 5
-  analysisManager->CreateNtupleDColumn("Hit_Y"); // column Id = 6
-  analysisManager->CreateNtupleDColumn("Hit_Z"); // column Id = 7
-  analysisManager->SetNtupleMerging(true);
+  analysisManager->CreateNtupleDColumn("Hit_Time",eventAction->Get_TOF_vector()); // column Id = 4
+  analysisManager->CreateNtupleDColumn("Hit_X",eventAction->Get_Event_Hits_Xvector()); // column Id = 5
+  analysisManager->CreateNtupleDColumn("Hit_Y",eventAction->Get_Event_Hits_Yvector()); // column Id = 6
+  analysisManager->CreateNtupleDColumn("Hit_Z",eventAction->Get_Event_Hits_Zvector()); // column Id = 7
+  // analysisManager->SetNtupleMerging(true);
   analysisManager->FinishNtuple(); 
+
+  analysisManager->SetNtupleFileName(0, "../Data/LXe_ntuple");
 
 
   // Create all histograms as activated

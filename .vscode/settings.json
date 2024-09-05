@@ -102,6 +102,7 @@
         "vec3": "cpp",
         "vec4": "cpp",
         "event": "cpp",
-        "point": "cpp"
+        "point": "cpp",
+        "colorf": "cpp"
     }
 }

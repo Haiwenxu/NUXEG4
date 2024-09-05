@@ -60,6 +60,8 @@ G4Run* LXeRunAction::GenerateRun()
 void LXeRunAction::BeginOfRunAction(const G4Run*)
 {
   G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
+
+  analysisManager->Reset();
   if(analysisManager->IsActive())
   {
     analysisManager->OpenFile();
@@ -78,7 +80,7 @@ void LXeRunAction::EndOfRunAction(const G4Run*)
   if(analysisManager->IsActive())
   {
     analysisManager->Write();
-    analysisManager->CloseFile();
+    analysisManager->CloseFile(false);
   }
 
   

@@ -64,7 +64,7 @@ class LXeEventAction : public G4UserEventAction
   void IncHitCount(G4int i = 1) { fHitCount += i; }
 
   void SetEWeightPos(const G4ThreeVector& p) { fEWeightPos = p; }
-  void SetReconPos(const G4ThreeVector& p) { fReconPos = p; }
+  // void SetReconPos(const G4ThreeVector& p) { fReconPos = p; }
   void SetConvPos(const G4ThreeVector& p)
   {
     fConvPos    = p;
@@ -83,7 +83,7 @@ class LXeEventAction : public G4UserEventAction
   G4int GetBoundaryAbsorptionCount() const { return fBoundaryAbsorptionCount; }
 
   G4ThreeVector GetEWeightPos() { return fEWeightPos; }
-  G4ThreeVector GetReconPos() { return fReconPos; }
+  // G4ThreeVector GetReconPos() { return fReconPos; }
   G4ThreeVector GetConvPos() { return fConvPos; }
   G4ThreeVector GetPosMax() { return fPosMax; }
   G4double GetEDepMax() { return fEdepMax; }
@@ -93,6 +93,30 @@ class LXeEventAction : public G4UserEventAction
 
   void IncSiPMSAboveThreshold() { ++fSiPMsAboveThreshold; }
   G4int GetSiPMSAboveThreshold() { return fSiPMsAboveThreshold; }
+
+
+  void push_back_TOF( G4double tof) { Event_Hits_TOF.push_back(tof); }
+  std::vector<G4double>& Get_TOF_vector() { return Event_Hits_TOF; }
+
+  void push_back_Hit_X( G4double hitX ) { Event_Hits_X.push_back(hitX); }
+  std::vector<G4double>& Get_Event_Hits_Xvector() { return Event_Hits_X; }
+
+  void push_back_Hit_Y( G4double hitY ) { Event_Hits_Y.push_back(hitY); }
+  std::vector<G4double>& Get_Event_Hits_Yvector() { return Event_Hits_Y; }
+
+  void push_back_Hit_Z( G4double hitZ ) { Event_Hits_Z.push_back(hitZ); }
+  std::vector<G4double>& Get_Event_Hits_Zvector() { return Event_Hits_Z; }
+
+
+
+
+
+
+
+
+
+
+  // std::vector<G4double>& GetHitTime() { return HitTime; }
 
  private:
   LXeEventMessenger* fEventMessenger;
@@ -117,13 +141,27 @@ class LXeEventAction : public G4UserEventAction
   // These only have meaning if totE > 0
   // If totE = 0 then these won't be set by EndOfEventAction
   G4ThreeVector fEWeightPos;
-  G4ThreeVector fReconPos;  // Also relies on hitCount>0
+  // G4ThreeVector fReconPos;  // Also relies on hitCount>0
   G4ThreeVector fConvPos;   // true (initial) converstion position
   G4bool fConvPosSet;
   G4ThreeVector fPosMax;
   G4double fEdepMax;
 
   G4int fSiPMsAboveThreshold;
+
+  std::vector<G4double> Event_Hits_TOF;
+
+  std::vector<G4double> Event_Hits_X;
+  std::vector<G4double> Event_Hits_Y;
+  std::vector<G4double> Event_Hits_Z;
+
+
+
+
+
+
+
+  // G4double HitTime;
 };
 
 #endif

@@ -71,8 +71,8 @@ LXeMainVolume::LXeMainVolume(G4RotationMatrix* pRot, const G4ThreeVector& tlate,
   G4double pi = 2 * acos(0.0);
   G4double alpha = pi / fPolygon_edge_num;             //central angle of the polygon
   G4double beta = (pi - alpha) / 2.;                   //half interial angle
-  G4double R = fPolygon_edge_len / (2. * sin(alpha));  //Circumradius
-  G4double r = fPolygon_edge_len / (2. * tan(alpha));  //Inradius
+  G4double R = (fPolygon_edge_len / (2. * sin(alpha)))- 6*mm;  //Circumradius
+  G4double r = (fPolygon_edge_len / (2. * tan(alpha)))- 6*mm;  //Inradius
 
 
   //*** Create the vertices of the polygon
@@ -80,9 +80,9 @@ LXeMainVolume::LXeMainVolume(G4RotationMatrix* pRot, const G4ThreeVector& tlate,
       G4double theta = 2 * (i / fPolygon_edge_num) * pi;
       polygon[i].set(R * sin(theta), R * cos(theta));
   }
-  std::cout << fPolygon_edge_num << "Polygon Vertices:" << std::endl;
+  std::cout << fPolygon_edge_num << " Polygon Vertices:" << std::endl;
   for(int i = 0; i < fPolygon_edge_num; i ++){
-      std::cout << "********" << polygon[i] << std::endl;
+      std::cout << "********" << polygon[i].x()<<";"<< polygon[i].y()<< std::endl;
   }
 
   //*** Create the Physical and Logical volume of LXe and Housing PTFE
@@ -258,7 +258,7 @@ LXeMainVolume::LXeMainVolume(G4RotationMatrix* pRot, const G4ThreeVector& tlate,
   //Hamamatsu S13371
   //https://hamamatsu.su/files/uploads/pdf/3_mppc/s13370_vuv4-mppc_b_(1).pdf
   G4double l_sipm = 15 * mm;              //size; 1.5X1.5 [mm]
-  G4double height_sipm = 6.5 * mm;        //thichness: (pin)4[mm] + (ceramic frame)2.5[mm] = 6.5[mm]
+  G4double height_sipm = (6.5-2) * mm;        //thichness: (pin)4[mm] + (ceramic frame)2.5[mm] = 6.5[mm]
   G4double l_sipm_off = 1.8 * mm;         //gap between photocathode and edge: 0.2[mm] + (15[mm] - 2*5.9[mm])/2
   G4double height_photocath = 1.3 * mm;   //photocathode height: 1.3 [mm]
   G4double l_photocath = 5.9 * mm;
@@ -269,7 +269,7 @@ LXeMainVolume::LXeMainVolume(G4RotationMatrix* pRot, const G4ThreeVector& tlate,
   // Create the Physical and Logical Volume of SiPM/photocathode box
   fSiPM = 
       new G4Box("SiPM_box", l_sipm / 2.,
-                    l_sipm / 2., height_sipm / 2.);
+                    l_sipm / 2., (height_sipm) / 2.);
   fPhotocath = 
       new G4Box("photocath_box",
                 l_photocath / 2.
@@ -322,7 +322,7 @@ LXeMainVolume::LXeMainVolume(G4RotationMatrix* pRot, const G4ThreeVector& tlate,
 
   //**** Create a small polygon where SiPMs will be placed onto its edges;
   std::vector<G4TwoVector> m_polygon(fPolygon_edge_num);
-  G4double r_diff = height_sipm + 1. * mm;                // gap between PTFE and the back of SiPMs;
+  G4double r_diff = (height_sipm + 1. * mm) - 4. *mm;                // gap between PTFE and the back of SiPMs;
   G4double m_r = r - r_diff;                              // inradius of the small polygon
   G4double m_R = m_r / cos(alpha);                        // circumradius
   for(G4double i = 0.0; i < fPolygon_edge_num; i++){
