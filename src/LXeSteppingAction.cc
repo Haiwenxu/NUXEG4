@@ -255,26 +255,17 @@ void LXeSteppingAction::UserSteppingAction(const G4Step* theStep)
           // G4cout << "============== "<<Time<<" ================" << G4endl;
 
           fEventAction->push_back_TOF(Time);
-          fEventAction->push_back_Hit_X(thePrePoint->GetPosition().x());
-          fEventAction->push_back_Hit_Y(thePrePoint->GetPosition().y());
-          fEventAction->push_back_Hit_Z(thePrePoint->GetPosition().z());
+          // fEventAction->push_back_Hit_X(thePostPoint->GetPosition().x());
+          // fEventAction->push_back_Hit_Y(thePostPoint->GetPosition().y());
+          // fEventAction->push_back_Hit_Z(thePostPoint->GetPosition().z());
 
 
 
-          G4AnalysisManager::Instance()->FillH3(0, thePrePoint->GetPosition().x(),
-                                                   thePrePoint->GetPosition().y(),
-                                                   thePrePoint->GetPosition().z());
+          G4AnalysisManager::Instance()->FillH3(0, thePostPoint->GetPosition().x(),
+                                                   thePostPoint->GetPosition().y(),
+                                                   thePostPoint->GetPosition().z());
 
-          // G4AnalysisManager::Instance()->FillNtupleDColumn(0,theStep->GetTrack()->GetTotalEnergy());
-          // G4AnalysisManager::Instance()->FillNtupleDColumn(1,theStep->GetTrack()->GetVertexPosition().x());
-          // G4AnalysisManager::Instance()->FillNtupleDColumn(2,theStep->GetTrack()->GetVertexPosition().y());
-          // G4AnalysisManager::Instance()->FillNtupleDColumn(3,theStep->GetTrack()->GetVertexPosition().z());
-          // G4AnalysisManager::Instance()->FillNtupleDColumn(4,Time);
-          // G4AnalysisManager::Instance()->FillNtupleDColumn(5,thePostPoint->GetPosition().x());
-          // G4AnalysisManager::Instance()->FillNtupleDColumn(6,thePostPoint->GetPosition().y());
-          // G4AnalysisManager::Instance()->FillNtupleDColumn(7,thePostPoint->GetPosition().z());
-          // G4AnalysisManager::Instance()->AddNtupleRow();
-
+          // fEventAction->push_back_Hit_sipmN(thePostPoint->GetTouchable()->GetReplicaNumber(1));
 
 
           G4SDManager* SDman = G4SDManager::GetSDMpointer();

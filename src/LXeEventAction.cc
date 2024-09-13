@@ -149,7 +149,6 @@ void LXeEventAction::EndOfEventAction(const G4Event* anEvent)
   // G4AnalysisManager::Instance()->FillNtupleDColumn(6,);
   // G4AnalysisManager::Instance()->FillNtupleDColumn(7,);
   
-  G4AnalysisManager::Instance()->AddNtupleRow();
 
   
 
@@ -169,11 +168,11 @@ void LXeEventAction::EndOfEventAction(const G4Event* anEvent)
   if(sipmHC)
   {
     std::vector<G4ThreeVector> reconPos;
-    size_t sipms = sipmHC->entries();
+    size_t N_Hits = sipmHC->entries();
     // std::cout << "=============== SiPM# " << SiPMs << " ================" << std::endl;
 
     // Gather info from all SiPMs
-    for(size_t i = 0; i < sipms; ++i)
+    for(size_t i = 0; i < N_Hits; ++i)
     {
       fHitCount += (*sipmHC)[i]->GetPhotonCount();
       reconPos.push_back((*sipmHC)[i]->GetSiPMPos());
@@ -182,9 +181,16 @@ void LXeEventAction::EndOfEventAction(const G4Event* anEvent)
       if((*sipmHC)[i]->GetPhotonCount() >= fSiPMThreshold)
       {
         G4AnalysisManager::Instance()->FillH1(8, (*sipmHC)[i]->GetSiPMNumber());
-        // printf("\n");
-        // std::cout << "=============== SiPM# " << (*sipmHC)[i]->GetSiPMNumber() << " ================" << std::endl;
-        // printf("\n");
+        push_back_Hit_sipmN((*sipmHC)[i]->GetSiPMNumber());
+        push_back_Hit_X((*sipmHC)[i]->GetSiPMPos().x());
+        push_back_Hit_Y((*sipmHC)[i]->GetSiPMPos().y());
+        push_back_Hit_Z((*sipmHC)[i]->GetSiPMPos().z());
+
+
+        // G4AnalysisManager::Instance()->FillH3(0,(*sipmHC)[i]->GetSiPMPos().x(),
+        //                                   (*sipmHC)[i]->GetSiPMPos().y(),
+        //                                   (*sipmHC)[i]->GetSiPMPos().z());
+
         ++fSiPMsAboveThreshold;
       }
       else
@@ -212,6 +218,9 @@ void LXeEventAction::EndOfEventAction(const G4Event* anEvent)
     }
     sipmHC->DrawAllHits();
   }
+
+  G4AnalysisManager::Instance()->AddNtupleRow();
+
 
   G4AnalysisManager::Instance()->FillH1(4, fPhotonCount_Ceren);
   G4AnalysisManager::Instance()->FillH1(5, fAbsorptionCount);
@@ -269,6 +278,9 @@ void LXeEventAction::EndOfEventAction(const G4Event* anEvent)
   }
   if (Event_Hits_Z.size()){
     Event_Hits_Z.clear();
+  }
+  if(sipmN.size()){
+    sipmN.clear();
   }
 }
 

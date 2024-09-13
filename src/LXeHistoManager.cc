@@ -154,6 +154,9 @@ void LXeHistoManager::Book()
   analysisManager->CreateNtupleDColumn("Hit_X",eventAction->Get_Event_Hits_Xvector()); // column Id = 5
   analysisManager->CreateNtupleDColumn("Hit_Y",eventAction->Get_Event_Hits_Yvector()); // column Id = 6
   analysisManager->CreateNtupleDColumn("Hit_Z",eventAction->Get_Event_Hits_Zvector()); // column Id = 7
+  analysisManager->CreateNtupleIColumn("SiPM#",eventAction->Get_Event_Hits_sipmN());    // column Id = 8
+  
+  
   // analysisManager->SetNtupleMerging(true);
   analysisManager->FinishNtuple(); 
 

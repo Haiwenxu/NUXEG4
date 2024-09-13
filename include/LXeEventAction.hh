@@ -107,6 +107,9 @@ class LXeEventAction : public G4UserEventAction
   void push_back_Hit_Z( G4double hitZ ) { Event_Hits_Z.push_back(hitZ); }
   std::vector<G4double>& Get_Event_Hits_Zvector() { return Event_Hits_Z; }
 
+  void push_back_Hit_sipmN( G4int n ) { sipmN.push_back(n); }
+  std::vector<G4int>& Get_Event_Hits_sipmN() { return sipmN; }
+
 
 
 
@@ -156,12 +159,10 @@ class LXeEventAction : public G4UserEventAction
   std::vector<G4double> Event_Hits_Z;
 
 
+  std::vector<G4int> sipmN;
 
 
 
-
-
-  // G4double HitTime;
 };
 
 #endif

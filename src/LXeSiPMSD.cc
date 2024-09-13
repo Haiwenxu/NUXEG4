@@ -119,48 +119,46 @@ G4bool LXeSiPMSD::ProcessHits_boundary(const G4Step* aStep, G4TouchableHistory*)
     aStep->GetPostStepPoint()->GetTouchable()->GetReplicaNumber(1);
   G4VPhysicalVolume* physVol =
     aStep->GetPostStepPoint()->GetTouchable()->GetVolume(1);
-  // printf("\n");
-  // std::cout << "=============== SiPM# " << sipmNumber << " ================" << std::endl;
-  // printf("\n");
 
 
   // Find the correct hit collection
   size_t n       = fSiPMHitCollection->entries();
   LXeSiPMHit* hit = nullptr;
-  for(size_t i = 0; i < n; ++i)
-  {
-    if((*fSiPMHitCollection)[i]->GetSiPMNumber() == sipmNumber)
-    {
-      hit = (*fSiPMHitCollection)[i];
-      break;
-    }
-  }
 
-  if(hit == nullptr)
-  {                         // this SiPM wasn't previously hit in this event
-    hit = new LXeSiPMHit();  // so create new hit
-    hit->SetSiPMNumber(sipmNumber);
-    hit->SetSiPMPhysVol(physVol);
-    fSiPMHitCollection->insert(hit);
-    hit->SetSiPMPos((*fSiPMPositionsX)[sipmNumber], (*fSiPMPositionsY)[sipmNumber],
-                   (*fSiPMPositionsZ)[sipmNumber]);
-  }
+
+
+
+
+  //// Avoid different hits on the same sensitive detector(SiPM in this case):
+  // for(size_t i = 0; i < n; ++i)
+  // {
+  //   if((*fSiPMHitCollection)[i]->GetSiPMNumber() == sipmNumber)
+  //   {
+  //     hit = (*fSiPMHitCollection)[i];
+  //     break;
+  //   }
+  // }
+  // if(hit == nullptr)
+  // {                         // this SiPM wasn't previously hit in this event
+  //   hit = new LXeSiPMHit();  // so create new hit
+  //   hit->SetSiPMNumber(sipmNumber);
+  //   hit->SetSiPMPhysVol(physVol);
+  //   fSiPMHitCollection->insert(hit);
+  //   hit->SetSiPMPos((*fSiPMPositionsX)[sipmNumber], (*fSiPMPositionsY)[sipmNumber],
+  //                  (*fSiPMPositionsZ)[sipmNumber]);
+  // }
+
+  // Create a hit with every single detected optical photons, duplicated SD allowed:
+  hit = new LXeSiPMHit();
+  hit->SetSiPMNumber(sipmNumber);
+  hit->SetSiPMPhysVol(physVol);
+  fSiPMHitCollection->insert(hit);
+  hit->SetSiPMPos((*fSiPMPositionsX)[sipmNumber], (*fSiPMPositionsY)[sipmNumber],
+                (*fSiPMPositionsZ)[sipmNumber]);
+
 
   hit->IncPhotonCount();  // increment hit for the selected sipm
-
-  // if(!LXeDetectorConstruction::GetSphereOn())
-  // {
   hit->SetDrawit(true);
-    // If the sphere is disabled then this hit is automaticaly drawn
-  // }
-  // else
-  // {  // sphere enabled
-  //   LXeUserTrackInformation* trackInfo =
-  //     (LXeUserTrackInformation*) aStep->GetTrack()->GetUserInformation();
-  //   if(trackInfo->GetTrackStatus() & hitSphere)
-  //     // only draw this hit if the photon has hit the sphere first
-  //     hit->SetDrawit(true);
-  // }
 
   return true;
 }
