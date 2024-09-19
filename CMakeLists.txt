@@ -40,7 +40,6 @@ target_link_libraries(LXe ${Geant4_LIBRARIES} )
 # relies on these scripts being in the current working directory.
 #
 set(LXe_SCRIPTS
-    LXe.out
     LXe.mac
     cerenkov.mac
     wls.mac

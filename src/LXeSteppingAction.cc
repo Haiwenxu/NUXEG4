@@ -143,8 +143,8 @@ void LXeSteppingAction::UserSteppingAction(const G4Step* theStep)
     fExpectedStatus = Undefined;
     return;
   }
-  G4cout << "=============== " << thePrePV->GetName() << " ================" << G4endl;
-  G4cout << "=============== " << thePostPV->GetName() << " ================" << G4endl;
+  //G4cout << "=============== " << thePrePV->GetName() << " ================" << G4endl;
+  //G4cout << "=============== " << thePostPV->GetName() << " ================" << G4endl;
 
   // Optical photon only
   if(pdg == -22)
@@ -246,7 +246,7 @@ void LXeSteppingAction::UserSteppingAction(const G4Step* theStep)
                          // is the photocathode because it is the only one with
                          // non-zero efficiency
         {
-          G4cout << "============== detected ================" << G4endl;
+          //G4cout << "============== detected ================" << G4endl;
 
           // Trigger sensitive detector manually since photon is
           // absorbed but status was Detection
