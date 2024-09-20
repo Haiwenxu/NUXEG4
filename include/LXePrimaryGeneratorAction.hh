@@ -33,6 +33,8 @@
 
 #include "G4VUserPrimaryGeneratorAction.hh"
 #include "G4GenericMessenger.hh"
+#include "G4GeneralParticleSource.hh"
+#include "globals.hh"
 
 class G4ParticleGun;
 class G4Event;
@@ -48,7 +50,7 @@ class LXePrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
  private:
   G4ParticleGun* fParticleGun;
   G4GenericMessenger* fMessenger;
-
+  G4GeneralParticleSource* fParticleSource; // GPS instance
   G4double m_dKineticEnergy;
 };
 

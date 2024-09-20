@@ -48,6 +48,7 @@ LXePrimaryGeneratorAction::LXePrimaryGeneratorAction()
 {
   G4int n_particle = 1;
   fParticleGun     = new G4ParticleGun(n_particle);
+  fParticleSource = new G4GeneralParticleSource();
   // G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
 
   // G4String particleName;
@@ -112,7 +113,10 @@ LXePrimaryGeneratorAction::LXePrimaryGeneratorAction()
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-LXePrimaryGeneratorAction::~LXePrimaryGeneratorAction() { delete fParticleGun; }
+LXePrimaryGeneratorAction::~LXePrimaryGeneratorAction() { 
+	delete fParticleGun; 
+	delete fParticleSource;
+}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -125,7 +129,7 @@ void LXePrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 
 
 
-  const G4double r = 36.5 * (G4UniformRand()) * mm;
+  /*const G4double r = 36.5 * (G4UniformRand()) * mm;
   const G4double rmin = 50.0 * mm;
   const G4double zmax = 4.2 * cm;   
   
@@ -149,6 +153,7 @@ void LXePrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
   // G4ThreeVector Pder = G4ThreeVector(-(r*mux+rmin), -(r*muy+rmin), -z);
   fParticleGun->SetParticleMomentumDirection(Pder);
   fParticleGun->SetParticlePolarization(Pder.orthogonal());
-  fParticleGun->GeneratePrimaryVertex(anEvent);
+  fParticleGun->GeneratePrimaryVertex(anEvent);*/
+  fParticleSource->GeneratePrimaryVertex(anEvent);
 
 }

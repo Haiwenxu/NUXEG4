@@ -6,11 +6,17 @@
 
 
 /run/initialize
-/gun/particle gamma
-/gun/energy 5.00 keV
+/gps/particle gamma              # Set particle type to gamma
+/gps/energy 1 MeV                # Set the particle energy to 1 MeV
+/gps/pos/type Point              # Set the position distribution to a point
+/gps/pos/centre 0 0 0 cm         # Set the position to (0, 0, 0)
+/gps/direction 1 0 0             # Set the direction to (1, 0, 0)
+/gps/number 1                    # Generate 1 particle per event
+#/gun/particle gamma
+#/gun/energy 5.00 keV
 #/gun/position 5 5 -5
 #/gun/direction 0 0 1
 #/gun/polarization 0 1 0
 #/tracking/verbose 1
-/run/beamOn 500
+/run/beamOn 10
 
